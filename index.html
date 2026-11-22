@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Special Invitation ❤️</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;overflow-x:hidden;
+ display:flex;justify-content:center;align-items:center;
+ padding:20px;
+ font-family:'Segoe UI',sans-serif;color:white;
+ background:linear-gradient(135deg,#180510,#500d2d,#230817);
+}
+.card{
+ width:100%;max-width:440px;text-align:center;padding:28px 22px;
+ background:rgba(255,255,255,.08);
+ border:1px solid rgba(255,255,255,.22);
+ border-radius:28px;backdrop-filter:blur(15px);
+ box-shadow:0 0 35px rgba(255,50,100,.25);
+}
+.screen{display:none}
+.screen.active{display:block;animation:appear .65s ease}
+@keyframes appear{
+ from{opacity:0;transform:translateY(18px)}
+ to{opacity:1;transform:translateY(0)}
+}
+h1{color:#ffb6d0;font-size:27px}
+h2{color:#ffe0eb;line-height:1.5}
+p{line-height:1.8;color:#ffe7ee}
+button{
+ display:block;width:100%;margin:12px 0;padding:15px;
+ border:none;border-radius:16px;
+ background:linear-gradient(135deg,#ff4778,#ad174b);
+ color:white;font-size:17px;font-weight:bold;
+ cursor:pointer;transition:.25s;
+}
+button:hover{transform:scale(1.04);box-shadow:0 0 20px #ff6b9c}
+.no{background:linear-gradient(135deg,#444,#222)}
+.place{background:rgba(255,255,255,.12)}
+.back{background:#5c1b39}
+.decor{font-size:32px;margin:18px}
+.small{font-size:12px;opacity:.7}
+.heart{
+ font-size:70px;display:inline-block;
+ animation:beat 1s infinite;
+ filter:drop-shadow(0 0 18px #ff4d87);
+}
+@keyframes beat{
+ 0%,100%{transform:scale(1)}
+ 15%{transform:scale(1.22)}
+ 30%{transform:scale(1)}
+ 45%{transform:scale(1.14)}
+}
+.floating{
+ position:fixed;bottom:-50px;pointer-events:none;
+ animation:float 8s linear forwards;opacity:.8;
+}
+@keyframes float{
+ to{transform:translateY(-110vh) rotate(360deg);opacity:0}
+}
+.gift{
+ font-size:100px;cursor:pointer;
+ display:inline-block;animation:bounce 1.5s infinite;
+}
+@keyframes bounce{
+ 0%,100%{transform:translateY(0)}
+ 50%{transform:translateY(-12px)}
+}
+.music{
+ position:fixed;top:12px;right:12px;width:auto;
+ font-size:14px;padding:10px 14px;
+ background:#7b2146;
+}
+.letter{
+ text-align:left;padding:20px;
+ border:1px solid #ffb6d0;border-radius:20px;
+ background:rgba(255,255,255,.06);
+}
+</style>
+</head>
+
+<body>
+
+<button class="music" onclick="toggleMusic()" id="musicBtn">
+🎵 Music ON
+</button>
+
+<div class="card">
+
+<!-- OPENING -->
+<div class="screen active" id="opening">
+
+<div class="decor">✨ 🌹 ✨</div>
+
+<h1>A Little Surprise For You</h1>
+
+<p>Someone has prepared a little something special... 💗</p>
+
+<div class="gift" onclick="openGift()">🎁</div>
+
+<p>Tap the gift to open 💌</p>
+
+<div class="decor">💖 🌸 💖</div>
+
+</div>
+
+<!-- Q1 -->
+<div class="screen" id="q1">
+
+<div class="decor">🎂 🌹 💗</div>
+
+<h1>Birthday Invitation</h1>
+
+<h2>Will you go on a birthday party with me? ❤️🌹</h2>
+
+<button onclick="next('q2')">YES 💖</button>
+
+<button class="no" id="no1" onclick="this.remove()">NO 😶</button>
+
+</div>
+
+<!-- Q2 -->
+<div class="screen" id="q2">
+
+<div class="decor">🌹 💕 🌸</div>
+
+<h2>What is your favourite place? ❤️</h2>
+
+<button class="place" onclick="choose('INOX 🎬')">INOX 🎬</button>
+<button class="place" onclick="choose('Cred-X ☕')">Cred-X ☕</button>
+<button class="place" onclick="choose('Tree House Cafe 🌳')">Tree House Cafe 🌳</button>
+<button class="place" onclick="choose('OHANA 🌸')">OHANA 🌸</button>
+<button class="place" onclick="choose('Vintage ✨')">Vintage ✨</button>
+
+<button class="place" onclick="choose('Mumbai Taj Hotel 🏨')">
+✨ Special: Mumbai Taj Hotel 🏨
+</button>
+
+</div>
+
+<!-- TAJ -->
+<div class="screen" id="taj">
+
+<div class="decor">🏨 😭 💸</div>
+
+<h2>Mumbai Taj Hotel?! 😭</h2>
+
+<p style="font-size:23px;color:#ffb6d0">
+Out of aukat 😂😭
+</p>
+
+<p>Madam, budget bhi thoda dekh lo 😂🌹</p>
+
+<button class="back" onclick="next('q2')">⬅️ Piche Chalo</button>
+
+</div>
+
+<!-- CHOICE -->
+<div class="screen" id="chosen">
+
+<div class="decor">💗 🌹 💗</div>
+
+<h2 id="placeText"></h2>
+
+<p>Perfect choice! ✨</p>
+
+<button onclick="next('q3')">Next 💖</button>
+
+</div>
+
+<!-- Q3 -->
+<div class="screen" id="q3">
+
+<div class="decor">⏰ 🌹 ❤️</div>
+
+<h2>Let's meet at 4 PM, done? 💗</h2>
+
+<button onclick="next('final')">YES 💕</button>
+
+<button class="no" id="no2" onclick="this.remove()">NO 😶</button>
+
+</div>
+
+<!-- LETTER -->
+<div class="screen" id="final">
+
+<div class="decor">🎀 🌹 💐</div>
+
+<h1>For You 💌</h1>
+
+<div class="letter">
+
+<p>
+Thank you for coming with me. ❤️
+</p>
+
+<p>
+I am so grateful that you will come with me.
+Let's be together and let's have some fun. 🌹✨
+</p>
+
+<p>
+I hope we make some beautiful memories and have a wonderful time. 💗
+</p>
+
+</div>
+
+<div class="decor">🌷 💖 🌷</div>
+
+<div class="heart">❤️</div>
+
+<h2>Love from - Ravi Kumari</h2>
+
+<div class="decor">🌹 🥰 🌹</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* SCREEN NAVIGATION */
+
+function next(id){
+ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+}
+
+/* GIFT */
+
+function openGift(){
+ startMusic();
+ next('q1');
+}
+
+/* PLACE */
+
+function choose(place){
+
+ if(place==='Mumbai Taj Hotel 🏨'){
+  next('taj');
+  return;
+ }
+
+ document.getElementById('placeText').innerText=
+ "Yay! "+place+" ❤️🌹";
+
+ next('chosen');
+}
+
+/* FLOATING HEARTS */
+
+function createHeart(){
+
+ const heart=document.createElement('div');
+ heart.className='floating';
+
+ const emojis=['❤️','💕','🌹','💗','💖','🌸'];
+
+ heart.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
+ heart.style.left=Math.random()*100+'vw';
+ heart.style.fontSize=(18+Math.random()*25)+'px';
+ heart.style.animationDuration=(5+Math.random()*5)+'s';
+
+ document.body.appendChild(heart);
+
+ setTimeout(()=>heart.remove(),10000);
+}
+
+setInterval(createHeart,800);
+
+/* SOFT ORIGINAL SYNTH MUSIC */
+
+let audioCtx;
+let musicOn=false;
+let musicTimer;
+let noteIndex=0;
+
+const melody=[
+ 261.63,329.63,392.00,329.63,
+ 293.66,349.23,440.00,349.23,
+ 261.63,392.00,329.63,293.66,
+ 220.00,293.66,349.23,293.66
+];
+
+function startMusic(){
+
+ if(musicOn)return;
+
+ audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+
+ if(audioCtx.state==='suspended')audioCtx.resume();
+
+ musicOn=true;
+
+ document.getElementById('musicBtn').innerText='🎵 Music ON';
+
+ playNote();
+
+ musicTimer=setInterval(playNote,650);
+}
+
+function playNote(){
+
+ if(!musicOn||!audioCtx)return;
+
+ const osc=audioCtx.createOscillator();
+ const gain=audioCtx.createGain();
+
+ osc.type='sine';
+ osc.frequency.value=melody[noteIndex%melody.length];
+
+ gain.gain.setValueAtTime(0,audioCtx.currentTime);
+ gain.gain.linearRampToValueAtTime(.045,audioCtx.currentTime+.08);
+ gain.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+.58);
+
+ osc.connect(gain);
+ gain.connect(audioCtx.destination);
+
+ osc.start();
+ osc.stop(audioCtx.currentTime+.6);
+
+ noteIndex++;
+}
+
+function toggleMusic(){
+
+ if(musicOn){
+  musicOn=false;
+  clearInterval(musicTimer);
+
+  if(audioCtx)audioCtx.suspend();
+
+  document.getElementById('musicBtn').innerText='🎵 Music OFF';
+ }else{
+  startMusic();
+ }
+}
+
+</script>
+
+</body>
+</html>
